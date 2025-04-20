@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Orchid | Luxe Essence Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Enhanced Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(166, 124, 82, 0.2);
+        }
+
+        .header-top {
+            background-color: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: .25em;
+            color: #111;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background-color: #a67c52;
+        }
+
+        .logo-tagline {
+            display: block;
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 3px;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-right: 35px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            display: inline-block;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #a67c52;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a67c52;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-button {
+            background-color: transparent;
+            color: #333;
+            border: 1px solid #a67c52;
+            padding: 10px 22px;
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-button:hover {
+            background-color: #a67c52;
+            color: white;
+        }
+
+        .cart-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        /* Page Banner */
+        .page-banner {
+            height: 40vh;
+            background-image: url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-top: 110px;
+        }
+
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .page-title {
+            position: relative;
+            z-index: 1;
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: 5px;
+        }
+        
+        .breadcrumb {
+            padding: 1rem 2rem;
+            background-color: #fff;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1a1a1a;
+        }
+
+        .product-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            gap: 4rem;
+        }
+
+        .product-gallery {
+            flex: 1;
+            position: relative;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background-color: #eee;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            background-color: #eee;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+        }
+
+        .product-info {
+            flex: 1;
+            padding-top: 2rem;
+        }
+
+        .product-category {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .product-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .product-description {
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .product-meta {
+            margin-bottom: 2rem;
+        }
+
+        .meta-item {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .meta-label {
+            width: 120px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .meta-value {
+            color: #666;
+        }
+
+        .size-selector {
+            margin-bottom: 2rem;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .size-option {
+            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .size-option:hover, .size-option.selected {
+            background-color: #1a1a1a;
+            color: #fff;
+            border-color: #1a1a1a;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            background: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #f2f2f2;
+        }
+
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 1rem;
+            margin: 0 0.5rem;
+        }
+
+        .add-to-cart {
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #333;
+        }
+
+        .wishlist-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            background-color: #f2f2f2;
+        }
+
+        .product-details {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .details-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            position: relative;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .tab.active {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #1a1a1a;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .ingredients-list {
+            columns: 2;
+            column-gap: 2rem;
+            list-style-position: inside;
+            margin-bottom: 2rem;
+        }
+        
+        .ingredient-item {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .fragrance-notes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .notes-column {
+            flex: 1;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .notes-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .notes-items {
+            color: #666;
+        }
+
+        .review {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-name {
+            font-weight: 500;
+        }
+
+        .review-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: #666;
+        }
+
+        .related-products {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+            font-weight: 400;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: #fff;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background-color: #eee;
+        }
+
+        .product-card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .product-card-price {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-card-btn {
+            background: none;
+            border: 1px solid #1a1a1a;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .product-card-btn:hover {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .newsletter {
+            margin-top: 1rem;
+        }
+
+        .newsletter-input {
+            padding: 0.8rem;
+            width: 100%;
+            border: none;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-btn {
+            background-color: #fff;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .newsletter-btn:hover {
+            opacity: 0.8;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .product-container {
+                flex-direction: column;
+            }
+
+            .main-image {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .notes-column {
+                padding: 0 0.5rem;
+            }
+        }
+
+        /* Additional styling for accordion on mobile */
+        @media (max-width: 576px) {
+            .tab {
+                padding: 1rem;
+            }
+
+            .fragrance-notes {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .notes-column {
+                text-align: left;
+                padding: 0;
+            }
+
+            .notes-title {
+                position: relative;
+                cursor: pointer;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid #eee;
+            }
+
+            .notes-title::after {
+                content: '+';
+                position: absolute;
+                right: 0;
+            }
+
+            .notes-column.active .notes-title::after {
+                content: '-';
+            }
+
+            .notes-items {
+                display: none;
+                padding-top: 1rem;
+            }
+
+            .notes-column.active .notes-items {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+            <header>
+        <div class="header-top">
+            Free shipping on all orders over $150
+        </div>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo-container">
+                    <a href="index.html" class="logo">
+                        LUXE ESSENCE
+                        <span class="logo-tagline">PARFUMERIE</span>
+                    </a>
+                </div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="collections.html">Collections</a></li>
+                        <li><a href="bestsellers.html">Bestsellers</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                    <button class="cart-button">
+                        <span class="cart-icon">&#10084;</span>
+                        Cart (0)
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="#">Home</a> / <a href="#">Collection</a> / <a href="#">Eau de Parfum</a> / Midnight Orchid
+    </div>
+
+    <!-- Product Section -->
+    <div class="product-container">
+        <!-- Product Gallery -->
+        <div class="product-gallery">
+            <img src="/api/placeholder/600/600" alt="Midnight Orchid Perfume" class="main-image">
+            <div class="thumbnail-container">
+                <img src="/api/placeholder/80/80" alt="Midnight Orchid Thumbnail 1" class="thumbnail active">
+                <img src="/api/placeholder/80/80" alt="Midnight Orchid Thumbnail 2" class="thumbnail">
+                <img src="/api/placeholder/80/80" alt="Midnight Orchid Thumbnail 3" class="thumbnail">
+                <img src="/api/placeholder/80/80" alt="Midnight Orchid Thumbnail 4" class="thumbnail">
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <div class="product-category">Eau de Parfum</div>
+            <h1 class="product-title">Midnight Orchid</h1>
+            <div class="product-subtitle">A nocturnal symphony of rare blossoms</div>
+            <div class="product-price">$285.00</div>
+            <p class="product-description">
+                Midnight Orchid captures the mysterious allure of rare nocturnal blooms. This exquisite fragrance opens with bright bergamot and pink pepper, evolving into a heart of black orchid and jasmine sambac. The base notes of vanilla bourbon, amber, and Haitian vetiver create a lasting impression of luxury and sophistication.
+            </p>
+            <div class="product-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Fragrance Family</div>
+                    <div class="meta-value">Floral Oriental</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Concentration</div>
+                    <div class="meta-value">Eau de Parfum</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Longevity</div>
+                    <div class="meta-value">8-10 hours</div>
+                </div>
+            </div>
+            <div class="size-selector">
+                <div class="meta-label">Size</div>
+                <div class="size-options">
+                    <div class="size-option">30ml</div>
+                    <div class="size-option selected">50ml</div>
+                    <div class="size-option">100ml</div>
+                </div>
+            </div>
+            <div class="quantity-selector">
+                <button class="quantity-btn" id="decrease">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" max="10">
+                <button class="quantity-btn" id="increase">+</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+            <button class="wishlist-btn">
+                <i class="far fa-heart"></i> Add to Wishlist
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-details">
+        <div class="details-tabs">
+            <div class="tab active" data-tab="description">Description</div>
+            <div class="tab" data-tab="ingredients">Ingredients</div>
+            <div class="tab" data-tab="reviews">Reviews</div>
+        </div>
+
+        <!-- Description Tab -->
+        <div class="tab-content active" id="description">
+            <p>
+                Midnight Orchid draws inspiration from the rare Black Orchid, which blooms only under the cover of darkness. Our master perfumer has captured this elusive flower's essence through a meticulous extraction process that preserves its mysterious character and depth.
+            </p>
+            <br>
+            <p>
+                Created as part of our Botanical Nocturne collection, this fragrance celebrates the hidden beauty that emerges after sunset. The unique composition balances rich floral notes with warm, sensual undertones that evolve throughout the evening.
+            </p>
+            <br>
+            <p>
+                Each bottle is hand-finished and individually numbered, reflecting our commitment to artisanal craftsmanship. The flacon's design echoes the dark elegance of its namesake flower, with hand-polished obsidian glass and a cap adorned with our signature gold emblem.
+            </p>
+
+            <div class="fragrance-notes">
+                <div class="notes-column">
+                    <h3 class="notes-title">Top Notes</h3>
+                    <div class="notes-items">
+                        Calabrian Bergamot<br>
+                        Pink Pepper<br>
+                        Blackcurrant
+                    </div>
+                </div>
+                <div class="notes-column">
+                    <h3 class="notes-title">Heart Notes</h3>
+                    <div class="notes-items">
+                        Black Orchid<br>
+                        Jasmine Sambac<br>
+                        Night-blooming Cereus
+                    </div>
+                </div>
+                <div class="notes-column">
+                    <h3 class="notes-title">Base Notes</h3>
+                    <div class="notes-items">
+                        Vanilla Bourbon<br>
+                        Amber<br>
+                        Haitian Vetiver<br>
+                        Patchouli
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredients Tab -->
+        <div class="tab-content" id="ingredients">
+            <p>Our fragrances are created using the finest natural and synthetic ingredients, carefully selected for their quality and sustainability:</p>
+            <br>
+            <ul class="ingredients-list">
+                <li class="ingredient-item">Alcohol Denat.</li>
+                <li class="ingredient-item">Parfum (Fragrance)</li>
+                <li class="ingredient-item">Aqua (Water)</li>
+                <li class="ingredient-item">Limonene</li>
+                <li class="ingredient-item">Linalool</li>
+                <li class="ingredient-item">Geraniol</li>
+                <li class="ingredient-item">Citronellol</li>
+                <li class="ingredient-item">Coumarin</li>
+                <li class="ingredient-item">Citral</li>
+                <li class="ingredient-item">Eugenol</li>
+                <li class="ingredient-item">Farnesol</li>
+                <li class="ingredient-item">Benzyl Benzoate</li>
+                <li class="ingredient-item">Benzyl Salicylate</li>
+                <li class="ingredient-item">Benzyl Alcohol</li>
+                <li class="ingredient-item">Cinnamal</li>
+                <li class="ingredient-item">Alpha-Isomethyl Ionone</li>
+            </ul>
+            <p>
+                All ingredients comply with IFRA standards. Our formulations are free from parabens, phthalates, and never tested on animals. We are committed to ethical sourcing and sustainable packaging.
+            </p>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-content" id="reviews">
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer-name">Elizabeth M.</div>
+                    <div class="review-date">March 15, 2025</div>
+                </div>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="review-text">
+                    This fragrance is absolutely magnificent. I receive compliments every time I wear it. The floral notes are sophisticated without being overwhelming, and the dry-down is divine. The longevity exceeds expectations - I can still detect it on my skin the following day. Worth every penny.
+                </div>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer-name">James T.</div>
+                    <div class="review-date">February 28, 2025</div>
+                </div>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                <div class="review-text">
+                    A sophisticated scent that works well for evening events. I was surprised by how well it sits on my skin without being too feminine. The amber and vetiver base notes create a beautiful depth. My only complaint is that the sillage could be a bit stronger, but the complexity makes up for it.
+                </div>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="reviewer-name">Sophia R.</div>
+                    <div class="review-date">January 19, 2025</div>
+                </div>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="review-text">
+                    Midnight Orchid is a masterpiece. The black orchid heart note is hauntingly beautiful, with just the right balance of sweetness from the vanilla bourbon. The bottle design is also stunning and looks elegant on my vanity. This has become my signature scent for important occasions.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-products">
+        <h2 class="section-title">You May Also Like</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/api/placeholder/250/250" alt="Velvet Rose" class="product-card-image">
+                <h3 class="product-card-title">Velvet Rose</h3>
+                <div class="product-card-price">$245.00</div>
+                <button class="product-card-btn">Quick View</button>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/250/250" alt="Amber Wood" class="product-card-image">
+                <h3 class="product-card-title">Amber Wood</h3>
+                <div class="product-card-price">$265.00</div>
+                <button class="product-card-btn">Quick View</button>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/250/250" alt="Silk Neroli" class="product-card-image">
+                <h3 class="product-card-title">Silk Neroli</h3>
+                <div class="product-card-price">$225.00</div>
+                <button class="product-card-btn">Quick View</button>
+            </div>
+            <div class="product-card">
+                <img src="/api/placeholder/250/250" alt="Oud Royale" class="product-card-image">
+                <h3 class="product-card-title">Oud Royale</h3>
+                <div class="product-card-price">$325.00</div>
+                <button class="product-card-btn">Quick View</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul class="footer-links">
+                    <li><a href="#">All Fragrances</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Gift Sets</a></li>
+                    <li><a href="#">Home Fragrances</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Craftmanship</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Care</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Join Our World</h3>
+                <p style="color: #aaa; margin-bottom: 1rem; font-size: 0.9rem;">Subscribe for exclusive offers and fragrance insights</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Your email address" class="newsletter-input">
+                    <button class="newsletter-btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 ESSENCE. All rights reserved.
+        </div>
+    </footer>
+
+<script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Quantity selector functionality
+        const decreaseBtn = document.getElementById('decrease');
+        const increaseBtn = document.getElementById('increase');
+        const quantityInput = document.querySelector('.quantity-input');
+
+        decreaseBtn.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value > 1) {
+                quantityInput.value = value - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', () => {
+            let value = parseInt(quantityInput.value);
+            if (value < 10) {
+                quantityInput.value = value + 1;
+            }
+        });
+
+        // Size selector functionality
+        const sizeOptions = document.querySelectorAll('.size-option');
+        
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                sizeOptions.forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Thumbnail gallery functionality
+        const mainImage = document.querySelector('.main-image');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                // Update active thumbnail
+                thumbnails.forEach(t => t.classList.remove('active'));
+                thumbnail.classList.add('active');
+                
+                // Update main image (in a real implementation, you would change the src)
+                // This is just a placeholder implementation
+                mainImage.src = thumbnail.src;
+            });
+        });
+
+        // Add to cart functionality
+        const addToCartBtn = document.querySelector('.add-to-cart');
+        
+        addToCartBtn.addEventListener('click', () => {
+            const quantity = parseInt(quantityInput.value);
+            const selectedSize = document.querySelector('.size-option.selected').textContent;
+            
+            // In a real implementation, you would send this data to a cart system
+            alert(`Added to cart: ${quantity} bottle(s) of Midnight Orchid (${selectedSize})`);
+        });
+
+        // Wishlist functionality
+        const wishlistBtn = document.querySelector('.wishlist-btn');
+        const wishlistIcon = wishlistBtn.querySelector('i');
+        
+        wishlistBtn.addEventListener('click', () => {
+            wishlistIcon.classList.toggle('far');
+            wishlistIcon.classList.toggle('fas');
+            
+            if (wishlistIcon.classList.contains('fas')) {
+                alert('Added to wishlist!');
+            } else {
+                alert('Removed from wishlist!');
+            }
+        });
+
+        // Mobile accordion for fragrance notes
+        const notesTitles = document.querySelectorAll('.notes-title');
+        
+        if (window.innerWidth <= 576) {
+            notesTitles.forEach(title => {
+                title.addEventListener('click', () => {
+                    const column = title.parentElement;
+                    column.classList.toggle('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

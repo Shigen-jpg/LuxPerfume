@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Essence | LoginAdmin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        body {
+            background-color: #f8f5f2;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-image: url("/api/placeholder/1920/1080");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1000px;
+            height: 550px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-section {
+            flex: 5;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #f8f5f2;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            letter-spacing: 8px;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .brand-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 350px;
+            opacity: 0.8;
+        }
+
+        .decorative-element {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .decorative-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -120px;
+            left: -100px;
+        }
+
+        .decorative-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .form-section {
+            flex: 4;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .form-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 0;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            background-color: transparent;
+            transition: border-color 0.3s;
+            font-size: 1rem;
+            color: #333;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #1a1a1a;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+
+        .forgot-password {
+            font-size: 0.85rem;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #1a1a1a;
+        }
+
+        .login-button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            letter-spacing: 2px;
+        }
+
+        .login-button:hover {
+            background-color: #333;
+        }
+
+        .signup-prompt {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .signup-link {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .signup-link:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .brand-section {
+                padding: 2rem;
+            }
+
+            .form-section {
+                padding: 2rem;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="brand-section">
+            <div class="decorative-element"></div>
+            <div class="decorative-element"></div>
+            <div class="brand-content">
+                <h1 class="logo">PetPet</h1>
+                <p class="tagline">Fragrance of PetPet</p>
+                <p class="brand-description">
+                    Experience the art of fine perfumery, where rare ingredients and masterful craftsmanship create olfactory masterpieces that transcend time.
+                </p>
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="form-header">
+                <h2 class="form-title">Welcome Back, Admin</h2>
+                <p class="form-subtitle">Please sign in to access your account</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-actions">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="login-button">SIGN IN</button>
+                <p class="signup-prompt">
+                    Don't have an account? <a href="#" class="signup-link">Join ESSENCE</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Here you would typically send this data to your server
+            // This is just a simple validation for demonstration
+            if (email && password) {
+                alert('Login successful! (This is just a demo)');
+            } else {
+                alert('Please fill in all fields');
+            }
+        });
+    </script>
+</body>
+</html>
