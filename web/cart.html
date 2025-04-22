@@ -235,7 +235,7 @@
             letter-spacing: 5px;
         }
         </style>
-    <body>
+    
         <!--Header-->
             <header>
         <div class="header-top">
@@ -265,5 +265,36 @@
             </div>
         </div>
     </header>
-    </body>
+        
+        <body>
+
+    <div class="cart">
+        <h2>Your Cart</h2>
+        <p>You have <span id="cart-count">0</span> item(s) in your cart.</p>
+        <div class="cart-summary" id="cart-summary">
+            <!-- Product summary goes here -->
+        </div>
+        <a href="productTestCart.html" class="btn-back">← Continue Shopping</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let count = localStorage.getItem('cartCount');
+            count = count ? parseInt(count) : 0;
+            document.getElementById('cart-count').textContent = count;
+
+            let summary = document.getElementById('cart-summary');
+
+            if (count > 0) {
+                summary.innerHTML = `
+                    <p><strong>Amber Bloom</strong> x ${count}</p>
+                    <p>Total: $${(89.99 * count).toFixed(2)}</p>
+                `;
+            } else {
+                summary.innerHTML = `<p>Your cart is currently empty.</p>`;
+            }
+        });
+    </script>
+
+</body>
 </html>
