@@ -1,4 +1,4 @@
-package com.example.controller;
+package controller;
 
 import model.Cart;
 import model.CartItem;

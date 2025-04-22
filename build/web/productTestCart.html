@@ -64,16 +64,37 @@
 
     <script>
         function addToCart() {
-            // Get the current count from localStorage (or start from 0)
-            let count = localStorage.getItem('cartCount');
-            count = count ? parseInt(count) : 0;
+            const product = {
+                id: 1,
+                name: "Amber Bloom",
+                price: 89.99
+            };
 
-            // Increment and update
-            count++;
-            localStorage.setItem('cartCount', count);
-
-            // Update the display
-            document.getElementById('cart-count').textContent = count;
+            // Send item to backend via POST request
+            fetch('add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Item saved to database.");
+                    // Local update
+                    let count = localStorage.getItem('cartCount');
+                    count = count ? parseInt(count) : 0;
+                    count++;
+                    localStorage.setItem('cartCount', count);
+                    document.getElementById('cart-count').textContent = count;
+                } else {
+                    alert("Failed to add to cart.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
         }
 
         // On load: update count display
