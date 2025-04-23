@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetPetPerfume | Admin Portal</title>
+    <title>PetPetPerfume | Staff Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500&display=swap');
@@ -18,13 +18,13 @@
             --white: #ffffff;
             --error: #b71c1c;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--dark);
@@ -38,7 +38,7 @@
             background-attachment: fixed;
             color: var(--cream);
         }
-        
+
         .login-container {
             width: 90%;
             max-width: 450px;
@@ -49,12 +49,12 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(201, 168, 124, 0.3);
         }
-        
+
         .logo {
             text-align: center;
             margin-bottom: 2rem;
         }
-        
+
         .logo h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -63,7 +63,7 @@
             letter-spacing: 2px;
             margin-bottom: 0.5rem;
         }
-        
+
         .logo span {
             font-family: 'Montserrat', sans-serif;
             font-weight: 300;
@@ -72,13 +72,13 @@
             font-size: 0.85rem;
             color: var(--gold-light);
         }
-        
+
         .divider {
             height: 1px;
             background: linear-gradient(to right, transparent, var(--gold), transparent);
             margin: 2rem 0;
         }
-        
+
         h2 {
             font-family: 'Playfair Display', serif;
             text-align: center;
@@ -89,12 +89,12 @@
             text-transform: uppercase;
             font-size: 1.5rem;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
             position: relative;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 0.8rem;
@@ -103,11 +103,11 @@
             letter-spacing: 1px;
             text-transform: uppercase;
         }
-        
+
         .form-group .input-wrapper {
             position: relative;
         }
-        
+
         .form-group .input-wrapper i {
             position: absolute;
             left: 15px;
@@ -115,7 +115,7 @@
             transform: translateY(-50%);
             color: var(--gold);
         }
-        
+
         .form-control {
             width: 100%;
             padding: 15px 15px 15px 45px;
@@ -127,13 +127,13 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 0 2px rgba(201, 168, 124, 0.2);
         }
-        
+
         .btn {
             width: 100%;
             padding: 15px;
@@ -150,13 +150,13 @@
             margin-top: 1rem;
             box-shadow: 0 4px 12px rgba(201, 168, 124, 0.3);
         }
-        
+
         .btn:hover {
             background-color: #b89361;
             transform: translateY(-2px);
             box-shadow: 0 6px 18px rgba(201, 168, 124, 0.4);
         }
-        
+
         .error-message {
             color: var(--error);
             text-align: center;
@@ -167,7 +167,7 @@
             border-radius: 4px;
             border-left: 3px solid var(--error);
         }
-        
+
         .footer {
             text-align: center;
             margin-top: 2rem;
@@ -175,13 +175,13 @@
             color: var(--gold-light);
             opacity: 0.7;
         }
-        
+
         @media (max-width: 768px) {
             .login-container {
                 padding: 2rem;
                 width: 95%;
             }
-            
+
             .logo h1 {
                 font-size: 2rem;
             }
@@ -194,20 +194,20 @@
             <h1>PetPetPerfume</h1>
             <span>Exquisite Fragrances</span>
         </div>
-        
+
         <div class="divider"></div>
-        
-        <h2>Admin Portal</h2>
-        
+
+        <h2>Staff Portal</h2>
+
         <form method="post">
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="username">Username</label>
                 <div class="input-wrapper">
                     <i class="fas fa-envelope"></i>
-                    <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter your Username" required>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-wrapper">
@@ -215,29 +215,39 @@
                     <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required>
                 </div>
             </div>
-            
+
             <button type="submit" class="btn">
                 <i class="fas fa-sign-in-alt"></i> Sign In
             </button>
-            
+
             <%
-                String email = request.getParameter("email");
+                String username = request.getParameter("username");
                 String password = request.getParameter("password");
-                if (email != null && password != null) {
-                    Connection conn = DBConnection.getConnection();
-                    PreparedStatement ps = conn.prepareStatement("SELECT * FROM AdminRecords WHERE email=? AND password=?");
-                    ps.setString(1, email);
-                    ps.setString(2, password);
-                    ResultSet rs = ps.executeQuery();
-                    if (rs.next()) {
-                        response.sendRedirect("adminpage.jsp");
-                    } else {
-                        out.println("<div class='error-message'><i class='fas fa-exclamation-circle'></i> Login Failed. Invalid email or password.</div>");
+
+                if (username != null && password != null) {
+                    try {
+                        Connection conn = DBConnection.getConnection();
+                        PreparedStatement ps = conn.prepareStatement("SELECT * FROM STAFFRECORDS WHERE username=? AND password=?");
+                        ps.setString(1, username);
+                        ps.setString(2, password);
+                        ResultSet rs = ps.executeQuery();
+
+                        if (rs.next()) {
+                            response.sendRedirect("staffpage.jsp");
+                        } else {
+                            out.println("<div class='error-message'><i class='fas fa-exclamation-circle'></i> Login Failed. Invalid username or password.</div>");
+                        }
+
+                        rs.close();
+                        ps.close();
+                        conn.close();
+                    } catch (Exception e) {
+                        out.println("<div class='error-message'>Something went wrong: " + e.getMessage() + "</div>");
                     }
                 }
             %>
         </form>
-        
+
         <div class="footer">
             &copy; 2025 PetPetPerfume. All Rights Reserved.
         </div>
