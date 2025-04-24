@@ -85,30 +85,30 @@ public class ProductDao {
         return total;
     }
 
-    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
-        List<Cart> cartProductList = new ArrayList<>();
-        try {
-            if (cartList.size() > 0) {
-                for (Cart item : cartList) {
-                    // Correct query to fetch product data for each item in the cart
-                    query = "SELECT * FROM NBUSER.PRODUCT WHERE id = ?";
-                    pst = this.con.prepareStatement(query);
-                    pst.setInt(1, item.getId());
-                    rs = pst.executeQuery();
-                    while (rs.next()) {
-                        Cart cartItem = new Cart();
-                        cartItem.setId(rs.getInt("id"));
-                        cartItem.setName(rs.getString("pro_name"));
-                        cartItem.setPrice(rs.getDouble("price") * item.getQuantity());
-                        cartItem.setQuantity(item.getQuantity());
-                        cartProductList.add(cartItem);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        return cartProductList;
-    }
+//    public List<Cart> getCartProducts(ArrayList<Cart> cartList) {
+//        List<Cart> cartProductList = new ArrayList<>();
+//        try {
+//            if (cartList.size() > 0) {
+//                for (Cart item : cartList) {
+//                    // Correct query to fetch product data for each item in the cart
+//                    query = "SELECT * FROM NBUSER.PRODUCT WHERE id = ?";
+//                    pst = this.con.prepareStatement(query);
+//                    pst.setInt(1, item.getId());
+//                    rs = pst.executeQuery();
+//                    while (rs.next()) {
+//                        Cart cartItem = new Cart();
+//                        cartItem.setId(rs.getInt("id"));
+//                        cartItem.setName(rs.getString("pro_name"));
+//                        cartItem.setPrice(rs.getDouble("price") * item.getQuantity());
+//                        cartItem.setQuantity(item.getQuantity());
+//                        cartProductList.add(cartItem);
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//        }
+//        return cartProductList;
+//    }
 }

@@ -1,70 +1,77 @@
-<%@page import="connection.DbCon,model.Product,dao.ProductDao" %>
-<%@page import="java.util.List"%>
+<%@ page import="java.util.*, model.CartItemTest" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
+<%@page import="connection.DbCon" %>
 <html>
 <head>
-    <title>Product List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Your Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 30px auto;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .total {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
+<h2 style="text-align:center;">🛒 Your Shopping Cart</h2>
+
 <%
-    // Fetch all products using ProductDao
-    List<Product> products = null;
-    try {
-        ProductDao dao = new ProductDao(DbCon.getConnection());
-        products = dao.getAllProducts();
-        if (products == null || products.isEmpty()) {
-            out.println("<p>No products available.</p>");
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        out.println("<p>Error fetching products. Please try again later.</p>");
+    List<CartItemTest> cartItems = (List<CartItemTest>) session.getAttribute("cartItems");
+    double grandTotal = 0.0;
+
+    if (cartItems == null || cartItems.isEmpty()) {
+%>
+        <p style="text-align:center;">Your cart is empty.</p>
+<%
+    } else {
+%>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Price (RM)</th>
+                <th>Quantity</th>
+                <th>Total (RM)</th>
+            </tr>
+<%
+            for (CartItemTest item : cartItems) {
+                grandTotal += item.getTotalPrice();
+%>
+            <tr>
+                <td><%= item.getProduct().getName() %></td>
+                <td><%= item.getProduct().getDescription() %></td>
+                <td><img src="<%= item.getProduct().getImageUrl() %>" width="80" /></td>
+                <td><%= item.getProduct().getPrice() %></td>
+                <td><%= item.getQuantity() %></td>
+                <td><%= item.getTotalPrice() %></td>
+            </tr>
+<%
+            }
+%>
+            <tr>
+                <td colspan="5" class="total">Grand Total</td>
+                <td class="total">RM <%= String.format("%.2f", grandTotal) %></td>
+            </tr>
+        </table>
+<%
     }
 %>
-
-<div class="container mt-5">
-    <h2 class="mb-4">Product List</h2>
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-        <tr>
-            <th>Name</th>
-            <th>Price (RM)</th>
-            <th>Quantity</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% 
-            if (products != null && !products.isEmpty()) {
-                for (Product p : products) {
-                    System.out.println("Product ID: " + p.getId());
-                    System.out.println("Product Name: " + p.getName());
-                    System.out.println("Product Price: " + p.getPrice());
-        %>
-            <tr>
-                <td><%= p.getName() %></td>
-                <td><%= String.format("%.2f", p.getPrice()) %></td>
-                <td>
-                    <form action="order-now" method="post" class="form-inline">
-                        <input type="hidden" name="id" value="<%= p.getId() %>">
-                        <input type="number" name="quantity" class="form-control form-control-sm mr-2" value="1" min="1">
-                </td>
-                <td>
-                        <button type="submit" class="btn btn-primary btn-sm">Buy</button>
-                    </form>
-                </td>
-            </tr>
-        <% 
-                }
-            } else {
-                out.println("<tr><td colspan='4' class='text-center'>No products available.</td></tr>");
-            }
-        %>
-        </tbody>
-    </table>
-</div>
 
 </body>
 </html>
