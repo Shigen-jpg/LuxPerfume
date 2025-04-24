@@ -1,71 +1,69 @@
-<%@page import="java.sql.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="connection.DbCon,model.Product,dao.ProductDao" %>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>All Products</title>
-    <style>
-        .container { padding: 20px; }
-        .card { border: 1px solid #ccc; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .card-title { font-size: 18px; font-weight: bold; }
-        .price { color: green; }
-        .actions a { margin-right: 10px; text-decoration: none; color: blue; }
-    </style>
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>All Products</h2>
-    <div class="row">
-        <%
-            Connection conn = null;
-            Statement stmt = null;
-            ResultSet rs = null;
+<%
+    // Fetch all products using ProductDao
+    List<Product> products = null;
+    try {
+        ProductDao dao = new ProductDao(DbCon.getConnection());
+        products = dao.getAllProducts();
+        if (products == null || products.isEmpty()) {
+            out.println("<p>No products available.</p>");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.println("<p>Error fetching products. Please try again later.</p>");
+    }
+%>
 
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/LuxPerfume", "nbuser", "nbuser");
-
-                String query = "SELECT id, pro_name, price FROM product";
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(query);
-
-                boolean hasProducts = false;
-                while (rs.next()) {
-                    hasProducts = true;
-                    int id = rs.getInt("id");
-                    String name = rs.getString("pro_name");
-                    double price = rs.getDouble("price");
+<div class="container mt-5">
+    <h2 class="mb-4">Product List</h2>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Price (RM)</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% 
+            if (products != null && !products.isEmpty()) {
+                for (Product p : products) {
+                    System.out.println("Product ID: " + p.getId());
+                    System.out.println("Product Name: " + p.getName());
+                    System.out.println("Product Price: " + p.getPrice());
         %>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><%= name %></h5>
-                    <h6 class="price">Price: $<%= price %></h6>
-                    <div class="actions">
-                        <a href="add-to-cart?id=<%= p.getId() %>">Add to Cart</a>
-                        <a href="order-now?quantity=1&id=<%= id %>">Buy Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <%
+            <tr>
+                <td><%= p.getName() %></td>
+                <td><%= String.format("%.2f", p.getPrice()) %></td>
+                <td>
+                    <form action="order-now" method="post" class="form-inline">
+                        <input type="hidden" name="id" value="<%= p.getId() %>">
+                        <input type="number" name="quantity" class="form-control form-control-sm mr-2" value="1" min="1">
+                </td>
+                <td>
+                        <button type="submit" class="btn btn-primary btn-sm">Buy</button>
+                    </form>
+                </td>
+            </tr>
+        <% 
                 }
-
-                if (!hasProducts) {
-                    out.println("<p>There are no products.</p>");
-                }
-
-            } catch (Exception e) {
-                out.println("<p>Error: " + e.getMessage() + "</p>");
-            } finally {
-                try { if (rs != null) rs.close(); } catch (Exception e) {}
-                try { if (stmt != null) stmt.close(); } catch (Exception e) {}
-                try { if (conn != null) conn.close(); } catch (Exception e) {}
+            } else {
+                out.println("<tr><td colspan='4' class='text-center'>No products available.</td></tr>");
             }
         %>
-    </div>
+        </tbody>
+    </table>
 </div>
 
 </body>

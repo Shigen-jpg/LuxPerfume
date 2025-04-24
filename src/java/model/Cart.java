@@ -1,26 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
-/**
- *
- * @author Chloe Lee En Yi
- */
-public class Cart extends Product{
-	private int quantity;
-	
 
-	public Cart() {
-	}
+public class Cart extends Product {
+    private int quantity;  // Number of items in the cart
 
+    public Cart(int id, String name, Double price, int quantity) {
+        super(id, name, price);  // Calling the Product constructor
+        this.quantity = quantity;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    // Getter and setter for quantity
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    // Method to calculate total price for this product (price * quantity)
+    public double getTotalPrice() {
+        return getPrice() * quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart [id=" + getId() + ", name=" + getName() + ", price=" + getPrice() + ", quantity=" + quantity + "]";
+    }
 }
