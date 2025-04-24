@@ -1,5 +1,4 @@
 package dao;
-import connection.DbCon;
 import model.CartItemTest;
 import model.ProductTest;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartDAOTest {
-    private Connection conn;
+    private final Connection conn;
 
     public CartDAOTest(Connection conn) {
         this.conn = conn;

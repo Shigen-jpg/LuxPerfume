@@ -1,77 +1,97 @@
-<%@ page import="java.util.*, model.CartItemTest" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="connection.DbCon" %>
-<html>
-<head>
-    <title>Your Cart</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 30px auto;
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: center;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .total {
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-<h2 style="text-align:center;">🛒 Your Shopping Cart</h2>
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="model.ProductTest" %>
+<%@ page import="model.CartItemTest" %>
+<%@ page import="connection.DbCon" %>
 
 <%
-    List<CartItemTest> cartItems = (List<CartItemTest>) session.getAttribute("cartItems");
-    double grandTotal = 0.0;
+    String idStr = request.getParameter("id");
+    int quantityToAdd = 1;
 
-    if (cartItems == null || cartItems.isEmpty()) {
-%>
-        <p style="text-align:center;">Your cart is empty.</p>
-<%
-    } else {
-%>
-        <table>
-            <tr>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>Price (RM)</th>
-                <th>Quantity</th>
-                <th>Total (RM)</th>
-            </tr>
-<%
-            for (CartItemTest item : cartItems) {
-                grandTotal += item.getTotalPrice();
-%>
-            <tr>
-                <td><%= item.getProduct().getName() %></td>
-                <td><%= item.getProduct().getDescription() %></td>
-                <td><img src="<%= item.getProduct().getImageUrl() %>" width="80" /></td>
-                <td><%= item.getProduct().getPrice() %></td>
-                <td><%= item.getQuantity() %></td>
-                <td><%= item.getTotalPrice() %></td>
-            </tr>
-<%
+    if (idStr != null) {
+        int productId = Integer.parseInt(idStr);
+
+        try {
+            Connection conn = DbCon.getConnection();
+
+            if (conn != null && !conn.isClosed()) {
+                // Check if product already exists in CART_ITEMS
+                PreparedStatement checkStmt = conn.prepareStatement("SELECT quantity FROM CART_ITEMS WHERE product_id = ?");
+                checkStmt.setInt(1, productId);
+                ResultSet rsCheck = checkStmt.executeQuery();
+
+                if (rsCheck.next()) {
+                    // Already exists ? update quantity
+                    int currentQty = rsCheck.getInt("quantity");
+                    PreparedStatement updateStmt = conn.prepareStatement("UPDATE CART_ITEMS SET quantity = ? WHERE product_id = ?");
+                    updateStmt.setInt(1, currentQty + quantityToAdd);
+                    updateStmt.setInt(2, productId);
+                    updateStmt.executeUpdate();
+                    updateStmt.close();
+                } else {
+                    // New product ? insert into CART_ITEMS
+                    PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO CART_ITEMS (product_id, quantity) VALUES (?, ?)");
+                    insertStmt.setInt(1, productId);
+                    insertStmt.setInt(2, quantityToAdd);
+                    insertStmt.executeUpdate();
+                    insertStmt.close();
+                }
+
+                rsCheck.close();
+                checkStmt.close();
             }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            out.println("<p style='color:red;'>Error adding to cart: " + e.getMessage() + "</p>");
+            e.printStackTrace();
+        }
+    }
+
+    // Load updated cart from DB
+    List<CartItemTest> cartItems = new ArrayList<>();
+
+    try {
+        Connection conn = DbCon.getConnection();
+        if (conn != null && !conn.isClosed()) {
+            String query = "SELECT p.id, p.name, p.description, p.price, p.image_url, ci.quantity " +
+                           "FROM CART_ITEMS ci JOIN PRODUCTS p ON ci.product_id = p.id";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ProductTest product = new ProductTest(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getDouble("price"),
+                        rs.getString("image_url")
+                );
+                CartItemTest item = new CartItemTest(product, rs.getInt("quantity"));
+                cartItems.add(item);
+            }
+
+            session.setAttribute("cartItems", cartItems);
+
+            rs.close();
+            stmt.close();
+        }
+    } catch (SQLException | ClassNotFoundException e) {
+        out.println("<p style='color:red;'>Error retrieving cart: " + e.getMessage() + "</p>");
+        e.printStackTrace();
+    }
+
+    out.println("<h3>Cart Items:</h3>");
+    if (cartItems.isEmpty()) {
+        out.println("<p>No items in cart.</p>");
+    } else {
+        for (CartItemTest item : cartItems) {
 %>
-            <tr>
-                <td colspan="5" class="total">Grand Total</td>
-                <td class="total">RM <%= String.format("%.2f", grandTotal) %></td>
-            </tr>
-        </table>
+            <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+                <p><strong><%= item.getProduct().getName() %></strong></p>
+                <p>Quantity: <%= item.getQuantity() %></p>
+                <p>Total Price: RM <%= item.getTotalPrice() %></p>
+            </div>
 <%
+        }
     }
 %>
-
-</body>
-</html>

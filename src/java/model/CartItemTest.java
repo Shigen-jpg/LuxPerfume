@@ -1,8 +1,8 @@
 package model;
-import connection.DbCon;
 
+import java.io.Serializable;
 
-public class CartItemTest {
+public class CartItemTest implements Serializable {
     private ProductTest product;
     private int quantity;
 
@@ -18,6 +18,7 @@ public class CartItemTest {
     public ProductTest getProduct() {
         return product;
     }
+    
     public void setProduct(ProductTest product) {
         this.product = product;
     }
@@ -25,20 +26,21 @@ public class CartItemTest {
     public int getQuantity() {
         return quantity;
     }
+    
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
     public double getTotalPrice() {
-        return this.quantity * product.getPrice();
+        if (product != null) {
+            return this.quantity * product.getPrice();
+        }
+        return 0.0;
     }
 
     @Override
     public String toString() {
-        return "CartItemTest{" +
-               "product=" + product.getName() +
-               ", quantity=" + quantity +
-               ", totalPrice=" + getTotalPrice() +
-               '}';
+        return String.format("CartItemTest{product='%s', quantity=%d, totalPrice=%.2f}",
+                             product != null ? product.getName() : "No Product", quantity, getTotalPrice());
     }
 }
