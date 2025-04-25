@@ -4,6 +4,9 @@
 <%@ page import="connection.DbCon" %>
 <%@ page import="model.ProductTest" %>
 
+
+
+
 <%
     List<ProductTest> productList = new ArrayList<>();
     try (Connection conn = DbCon.getConnection();
@@ -17,7 +20,8 @@
                 rs.getString("name"),
                 rs.getString("description"),
                 rs.getDouble("price"),
-                rs.getString("image_url")
+                rs.getString("image_url"),
+                rs.getInt("id")
             );
             productList.add(product);
         }
@@ -44,12 +48,13 @@
         <p><strong><%= p.getName() %></strong></p>
         <p><%= p.getDescription() %></p>
         <p>RM <%= p.getPrice() %></p>
-        <form method="post" action="cartTest.jsp">
+        <form method="get" action="cartTest.jsp">
             <input type="hidden" name="id" value="<%= p.getId() %>" />
             <input type="hidden" name="name" value="<%= p.getName() %>" />
             <input type="hidden" name="description" value="<%= p.getDescription() %>" />
             <input type="hidden" name="price" value="<%= p.getPrice() %>" />
             <input type="hidden" name="image_url" value="<%= p.getImageUrl() %>" />
+            <input type="hidden" name="quantity" value="1" />
             <button type="submit">Add to Cart</button>
         </form>
     </div>

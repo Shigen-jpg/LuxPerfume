@@ -3,13 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/src/java/model/Product.java</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/web/cartTest.jsp</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/web/cart.jsp</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/src/java/dao/ProductDao.java</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/src/java/servlet/AddToCartServlet.java</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/src/java/model/Cart.java</file>
-            <file>file:/C:/Users/chong/Documents/GitHub/LuxPerfume/src/java/model/CartItem.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/web/cartTest.jsp</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/model/CartItemTest.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/dao/CartDAOTest.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/web/proTest.jsp</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/web/checkout.jsp</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/dao/ProductDAOTest.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/model/Product.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/model/ProductTest.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/servlet/CheckoutServlet.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/servlet/PaymentServlet.java</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/web/orderCon.jsp</file>
+            <file>file:/Users/chloe/Documents/GitHub/LuxPerfume/src/java/model/Payment.java</file>
         </group>
     </open-files>
 </project-private>

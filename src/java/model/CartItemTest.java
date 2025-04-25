@@ -10,6 +10,9 @@ public class CartItemTest implements Serializable {
     public CartItemTest() {}
 
     public CartItemTest(ProductTest product, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
         this.product = product;
         this.quantity = quantity;
     }
@@ -18,7 +21,7 @@ public class CartItemTest implements Serializable {
     public ProductTest getProduct() {
         return product;
     }
-    
+
     public void setProduct(ProductTest product) {
         this.product = product;
     }
@@ -26,8 +29,11 @@ public class CartItemTest implements Serializable {
     public int getQuantity() {
         return quantity;
     }
-    
+
     public void setQuantity(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
         this.quantity = quantity;
     }
 
@@ -40,7 +46,7 @@ public class CartItemTest implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("CartItemTest{product='%s', quantity=%d, totalPrice=%.2f}",
+        return String.format("CartItem{product='%s', quantity=%d, totalPrice=%.2f}",
                              product != null ? product.getName() : "No Product", quantity, getTotalPrice());
     }
 }
