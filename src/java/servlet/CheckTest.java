@@ -1,32 +1,40 @@
+
 package servlet;
 
-
-import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import model.*;
 import connection.DbCon;
+import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.*;
 
-@WebServlet("/CheckoutServlet")
-public class CheckoutServlet extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(CheckoutServlet.class.getName());
+
+/**
+ *
+ * @author chloe
+ */
+@WebServlet(name = "CheckTest", urlPatterns = {"/CheckTest"})
+public class CheckTest extends HttpServlet {
+
+
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         List<CartItemTest> cartItems = new ArrayList<>();
         int index = 0;
-
-        try (Connection conn = DbCon.getConnection()) {
+        
+                try (Connection conn = DbCon.getConnection()) {
             if (conn != null && !conn.isClosed()) {
                 while (true) {
                     String productIdStr = request.getParameter("items[" + index + "].productId");
@@ -60,16 +68,18 @@ public class CheckoutServlet extends HttpServlet {
                             }
                             rs.close();
                         }
-                    } catch (NumberFormatException | SQLException e) {
-                        LOGGER.log(Level.SEVERE, "Error processing product at index " + index + ": " + e.getMessage(), e);
-                    }
+                    } catch (NumberFormatException e) {
+            
+    request.setAttribute("errorMessage", "Database error occurred. Please try again later.");
+
+        }
 
                     index++;
                 }
 
                 if (cartItems.isEmpty()) {
                     request.setAttribute("message", "No valid items for checkout.");
-                    request.getRequestDispatcher("cart.jsp").forward(request, response);
+                    request.getRequestDispatcher("cartTest.jsp").forward(request, response);
                     return;
                 }
 
@@ -77,11 +87,16 @@ public class CheckoutServlet extends HttpServlet {
                 request.getRequestDispatcher("checkout.jsp").forward(request, response);
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Database error: " + e.getMessage(), e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error.");
-        } catch (ClassNotFoundException ex) {
-            LOGGER.log(Level.SEVERE, "Class not found error: " + ex.getMessage(), ex);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error.");
-        }
+    e.printStackTrace(); 
+    request.setAttribute("errorMessage", "Database error occurred. Please try again later.");
+} catch (ClassNotFoundException e) {
+    e.printStackTrace();
+    request.setAttribute("errorMessage", "Server error occurred. Please try again later.");
+}
+
     }
+
+    
+    
+
 }
